@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtBroker.API", "ThoughtBroker.API\ThoughtBroker.API.csproj", "{3E92CE58-BA57-4938-8475-683342082317}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtBroker.Infrastructure", "ThoughtBroker.Infrastructure\ThoughtBroker.Infrastructure.csproj", "{290CE0F7-69F2-444B-A688-C19C600CD009}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtBroker.Domain", "ThoughtBroker.Domain\ThoughtBroker.Domain.csproj", "{6CCCF493-470F-4DB7-BE64-9F4B7AD01C23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThoughtBroker.Application", "ThoughtBroker.Application\ThoughtBroker.Application.csproj", "{0F594FE0-8592-42F6-AAB7-9006840EABD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E92CE58-BA57-4938-8475-683342082317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E92CE58-BA57-4938-8475-683342082317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E92CE58-BA57-4938-8475-683342082317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E92CE58-BA57-4938-8475-683342082317}.Release|Any CPU.Build.0 = Release|Any CPU
+		{290CE0F7-69F2-444B-A688-C19C600CD009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{290CE0F7-69F2-444B-A688-C19C600CD009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{290CE0F7-69F2-444B-A688-C19C600CD009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{290CE0F7-69F2-444B-A688-C19C600CD009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CCCF493-470F-4DB7-BE64-9F4B7AD01C23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CCCF493-470F-4DB7-BE64-9F4B7AD01C23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CCCF493-470F-4DB7-BE64-9F4B7AD01C23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CCCF493-470F-4DB7-BE64-9F4B7AD01C23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F594FE0-8592-42F6-AAB7-9006840EABD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F594FE0-8592-42F6-AAB7-9006840EABD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F594FE0-8592-42F6-AAB7-9006840EABD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F594FE0-8592-42F6-AAB7-9006840EABD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
