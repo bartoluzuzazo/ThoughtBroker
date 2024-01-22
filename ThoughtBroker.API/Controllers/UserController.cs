@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using ThoughtBroker.API.DTOs.UserDTOs.Create;
-using ThoughtBroker.API.DTOs.UserDTOs.Get;
+using ThoughtBroker.API.DTOs.UserDTOs.Login;
+using ThoughtBroker.API.DTOs.UserDTOs.Read;
 using ThoughtBroker.Application.UserServices.Commands;
 using ThoughtBroker.Application.UserServices.Queries;
 
@@ -21,19 +23,30 @@ public class UserController : ControllerBase
         _mapper = mapper;
     }
 
-    [HttpPost]
+    [HttpPost("register")]
     public async Task<IActionResult> CreateUser(UserCreateRequest request)
     {
         var command = _mapper.Map<AddUserCommand>(request);
 
         var result = await _mediator.Send(command);
 
-        var response = new UserCreateResponse()
+        if (result.Equals(Guid.Empty)) return Conflict();
+        
+        var response = new UserCreateResponse
         {
             Id = result
         };
         
         return Ok(response);
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(UserLoginRequest request)
+    {
+        var command = _mapper.Map<UserLoginQuery>(request);
+        var result = await _mediator.Send(command);
+        if (result.Token.IsNullOrEmpty()) return Unauthorized();
+        return Ok(result);
     }
 
     [HttpGet]

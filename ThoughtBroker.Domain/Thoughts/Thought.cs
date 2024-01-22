@@ -21,4 +21,17 @@ public partial class Thought : BaseEntity
     public virtual Thought? Parent { get; set; }
 
     public virtual User User { get; set; } = null!;
+
+    public static Thought Create(Guid authorId, string content, Guid? parentId)
+    {
+        var thought = new Thought()
+        {
+            Id = Guid.NewGuid(),
+            Content = content,
+            Timestamp = DateTime.Now,
+            UserId = authorId
+        };
+        if (parentId is not null) thought.ParentId = parentId;
+        return thought;
+    }
 }

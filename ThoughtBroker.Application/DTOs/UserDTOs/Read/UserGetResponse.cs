@@ -1,4 +1,4 @@
-﻿namespace ThoughtBroker.API.DTOs.UserDTOs.Get;
+﻿namespace ThoughtBroker.API.DTOs.UserDTOs.Read;
 
 public class UserGetResponse
 {

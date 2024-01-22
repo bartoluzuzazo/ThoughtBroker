@@ -11,12 +11,14 @@
 
     <ItemGroup>
       <PackageReference Include="MediatR" Version="12.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.15" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\ThoughtBroker.Domain\ThoughtBroker.Domain.csproj" />
       <ProjectReference Include="..\ThoughtBroker.Infrastructure\ThoughtBroker.Infrastructure.csproj" />
     </ItemGroup>
+
 
 
 </Project>

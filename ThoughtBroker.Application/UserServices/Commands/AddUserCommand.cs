@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Identity;
 using ThoughtBroker.Domain.Users;
 
 namespace ThoughtBroker.Application.UserServices.Commands;
@@ -21,7 +22,12 @@ public class AddUserCommandHandler : IRequestHandler<AddUserCommand, Guid>
     
     public async Task<Guid> Handle(AddUserCommand request, CancellationToken cancellationToken)
     {
-        var user = User.Create(request.Username, request.Email, request.Password);
+        if (await _userRepository.UserExistsAsync(request.Username, request.Email)) return Guid.Empty;
+        
+        var passwordHasher = new PasswordHasher<User>();
+        var hashedPassword = passwordHasher.HashPassword(new User(), request.Password);
+        
+        var user = User.Create(request.Username, request.Email, hashedPassword);
 
         await _userRepository.AddUserAsync(user);
 

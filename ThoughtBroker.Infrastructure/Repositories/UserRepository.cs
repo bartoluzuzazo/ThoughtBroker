@@ -30,6 +30,12 @@ public class UserRepository : IUserRepository
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
         return user;
     }
+    
+    public async Task<User?> GetUserAsync(string email)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        return user;
+    }
 
     public async Task<List<User>> GetAllUsersAsync()
     {
@@ -45,4 +51,12 @@ public class UserRepository : IUserRepository
         dbUser.Email = user.Email;
         await _context.SaveChangesAsync();
     }
+
+    public async Task<bool> UserExistsAsync(string username, string email)
+    {
+        var usernameCheck = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+        var emailCheck = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        return usernameCheck is not null || emailCheck is not null;
+    }
+    
 }
