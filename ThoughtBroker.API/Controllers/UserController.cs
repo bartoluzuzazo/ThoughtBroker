@@ -2,9 +2,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using ThoughtBroker.API.DTOs.UserDTOs.Create;
-using ThoughtBroker.API.DTOs.UserDTOs.Login;
-using ThoughtBroker.API.DTOs.UserDTOs.Read;
+using ThoughtBroker.Application.DTOs.UserDTOs.Create;
+using ThoughtBroker.Application.DTOs.UserDTOs.Login;
 using ThoughtBroker.Application.UserServices.Commands;
 using ThoughtBroker.Application.UserServices.Queries;
 
@@ -27,17 +26,9 @@ public class UserController : ControllerBase
     public async Task<IActionResult> CreateUser(UserCreateRequest request)
     {
         var command = _mapper.Map<AddUserCommand>(request);
-
         var result = await _mediator.Send(command);
-
-        if (result.Equals(Guid.Empty)) return Conflict();
-        
-        var response = new UserCreateResponse
-        {
-            Id = result
-        };
-        
-        return Ok(response);
+        if (result.Id.Equals(Guid.Empty)) return Conflict();
+        return Ok(result);
     }
 
     [HttpPost("login")]
@@ -54,8 +45,6 @@ public class UserController : ControllerBase
     {
         var command = new GetUserQuery{Id = request};
         var result = await _mediator.Send(command);
-        if (result is null) return NotFound();
-        var response = _mapper.Map<UserGetResponse>(result);
-        return Ok(response);
+        return result is not null ? Ok(result) : NotFound();
     }
 }

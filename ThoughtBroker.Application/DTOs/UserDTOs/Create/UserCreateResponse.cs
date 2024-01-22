@@ -1,4 +1,4 @@
-﻿namespace ThoughtBroker.API.DTOs.UserDTOs.Create;
+﻿namespace ThoughtBroker.Application.DTOs.UserDTOs.Create;
 
 public class UserCreateResponse
 {

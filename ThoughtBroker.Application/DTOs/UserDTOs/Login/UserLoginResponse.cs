@@ -1,4 +1,4 @@
-﻿namespace ThoughtBroker.API.DTOs.UserDTOs.Login;
+﻿namespace ThoughtBroker.Application.DTOs.UserDTOs.Login;
 
 public class UserLoginResponse
 {

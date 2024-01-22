@@ -1,6 +1,4 @@
-﻿using ThoughtBroker.Domain.Thoughts;
-
-namespace ThoughtBroker.API.DTOs.ThoughtDTOs.Read;
+﻿namespace ThoughtBroker.Application.DTOs.ThoughtDTOs.Read;
 
 public class GetAllThoughtsResponse
 {
@@ -12,8 +10,8 @@ public class GetAllThoughtsResponseThought
     public string Content { get; set; } = null!;
 
     public Guid UserId { get; set; }
-    
-    public string Username { get; set; }
+
+    public string Username { get; set; } = null!;
 
     public DateTime Timestamp { get; set; }
 

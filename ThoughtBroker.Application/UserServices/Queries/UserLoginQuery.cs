@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using ThoughtBroker.API.DTOs.UserDTOs.Login;
+using ThoughtBroker.Application.DTOs.UserDTOs.Login;
 using ThoughtBroker.Domain.Users;
 
 namespace ThoughtBroker.Application.UserServices.Queries;

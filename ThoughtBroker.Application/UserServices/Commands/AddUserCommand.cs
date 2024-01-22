@@ -1,17 +1,18 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
+using ThoughtBroker.Application.DTOs.UserDTOs.Create;
 using ThoughtBroker.Domain.Users;
 
 namespace ThoughtBroker.Application.UserServices.Commands;
 
-public record AddUserCommand : IRequest<Guid>
+public record AddUserCommand : IRequest<UserCreateResponse>
 {
     public string Username { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string Password { get; set; } = null!;
 }
 
-public class AddUserCommandHandler : IRequestHandler<AddUserCommand, Guid>
+public class AddUserCommandHandler : IRequestHandler<AddUserCommand, UserCreateResponse>
 {
     private readonly IUserRepository _userRepository;
 
@@ -20,9 +21,14 @@ public class AddUserCommandHandler : IRequestHandler<AddUserCommand, Guid>
         _userRepository = userRepository;
     }
     
-    public async Task<Guid> Handle(AddUserCommand request, CancellationToken cancellationToken)
+    public async Task<UserCreateResponse> Handle(AddUserCommand request, CancellationToken cancellationToken)
     {
-        if (await _userRepository.UserExistsAsync(request.Username, request.Email)) return Guid.Empty;
+        var response = new UserCreateResponse()
+        {
+            Id = Guid.Empty
+        };
+        
+        if (await _userRepository.UserExistsAsync(request.Username, request.Email)) return response;
         
         var passwordHasher = new PasswordHasher<User>();
         var hashedPassword = passwordHasher.HashPassword(new User(), request.Password);
@@ -31,6 +37,8 @@ public class AddUserCommandHandler : IRequestHandler<AddUserCommand, Guid>
 
         await _userRepository.AddUserAsync(user);
 
-        return user.Id;
+        response.Id = user.Id;
+        
+        return response;
     }
 }

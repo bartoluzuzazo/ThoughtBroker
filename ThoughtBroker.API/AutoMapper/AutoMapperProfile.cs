@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using ThoughtBroker.API.DTOs.ThoughtDTOs.Create;
-using ThoughtBroker.API.DTOs.ThoughtDTOs.Read;
-using ThoughtBroker.API.DTOs.UserDTOs.Create;
-using ThoughtBroker.API.DTOs.UserDTOs.Login;
-using ThoughtBroker.API.DTOs.UserDTOs.Read;
+using ThoughtBroker.Application.DTOs.ThoughtDTOs.Create;
+using ThoughtBroker.Application.DTOs.ThoughtDTOs.Read;
+using ThoughtBroker.Application.DTOs.UserDTOs.Create;
+using ThoughtBroker.Application.DTOs.UserDTOs.Login;
+using ThoughtBroker.Application.DTOs.UserDTOs.Read;
 using ThoughtBroker.Application.ThoughtServices.Commands;
 using ThoughtBroker.Application.UserServices.Commands;
 using ThoughtBroker.Application.UserServices.Queries;

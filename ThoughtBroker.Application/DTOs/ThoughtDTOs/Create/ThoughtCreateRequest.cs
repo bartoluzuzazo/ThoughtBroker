@@ -1,4 +1,4 @@
-﻿namespace ThoughtBroker.API.DTOs.ThoughtDTOs.Create;
+﻿namespace ThoughtBroker.Application.DTOs.ThoughtDTOs.Create;
 
 public class ThoughtCreateRequest
 {
