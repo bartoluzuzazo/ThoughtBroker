@@ -1,4 +1,5 @@
 import {Threads} from "./Threads/Threads";
+import {RightPanel} from "./RightPanel/RightPanel";
 
 export const Homepage = () => {
 
@@ -7,7 +8,7 @@ export const Homepage = () => {
         <div className="w-full h-full flex justify-around">
             <div/>
             <Threads/>
-            <div/>
+            <RightPanel/>
         </div>
     )
 }

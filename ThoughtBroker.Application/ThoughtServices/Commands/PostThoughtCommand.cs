@@ -7,6 +7,7 @@ namespace ThoughtBroker.Application.ThoughtServices.Commands;
 
 public record PostThoughtCommand : IRequest<ThoughtCreateResponse>
 {
+    public Guid AuthorId { get; set; }
     public string Content { get; set; } = null!;
     public Guid? ParentId { get; set; }
 }
@@ -14,21 +15,15 @@ public record PostThoughtCommand : IRequest<ThoughtCreateResponse>
 public class PostThoughtCommandHandler : IRequestHandler<PostThoughtCommand, ThoughtCreateResponse>
 {
     private readonly IThoughtRepository _thoughtRepository;
-    private readonly IUserRepository _userRepository;
 
     public PostThoughtCommandHandler(IThoughtRepository thoughtRepository, IUserRepository userRepository)
     {
         _thoughtRepository = thoughtRepository;
-        _userRepository = userRepository;
     }
     
     public async Task<ThoughtCreateResponse> Handle(PostThoughtCommand request, CancellationToken cancellationToken)
     {
-        //TODO: REMOVE THIS
-        var users = await _userRepository.GetAllUsersAsync();
-        var author = users.First();
-        
-        var thought = Thought.Create(author.Id, request.Content, request.ParentId);
+        var thought = Thought.Create(request.AuthorId, request.Content, request.ParentId);
 
         await _thoughtRepository.CreateThoughtAsync(thought);
 

@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {IThought, Thought} from "./Thought/Thought";
 import axios from "axios";
+import {Skeleton} from "@mui/material";
 
 export const Threads = () => {
 
@@ -15,7 +16,10 @@ export const Threads = () => {
 
     return (
         <div className="border w-1/3">
-            {thoughts?.map(t => <Thought thought={t}/>) ?? <p>nic</p>}
+            {thoughts?.map(t => <Thought thought={t}/>) ??
+                <div className="p-3 h-80">
+                    <Skeleton variant="rectangular"/>
+                </div>}
         </div>
     )
 }

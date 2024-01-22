@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ThoughtBroker.Application.DTOs.ThoughtDTOs.Create;
 using ThoughtBroker.Application.ThoughtServices.Commands;
@@ -21,9 +23,12 @@ namespace ThoughtBroker.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> PostThought(ThoughtCreateRequest request)
         {
             var command = _mapper.Map<PostThoughtCommand>(request);
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            command.AuthorId = Guid.Parse(identity!.Claims.First(c => c.Type == "UserId").Value);
             var result = await _mediator.Send(command);
             return Ok(result);
         }
