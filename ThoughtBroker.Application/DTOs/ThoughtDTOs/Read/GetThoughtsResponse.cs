@@ -1,11 +1,12 @@
 ﻿namespace ThoughtBroker.Application.DTOs.ThoughtDTOs.Read;
 
-public class GetAllThoughtsResponse
+public class GetThoughtsResponse
 {
-    public List<GetAllThoughtsResponseThought> Thoughts { get; set; }
+    public List<GetThoughtsResponseThought> Thoughts { get; set; }
+    public int Pages { get; set; }
 }
 
-public class GetAllThoughtsResponseThought
+public class GetThoughtsResponseThought
 {
     public string Content { get; set; } = null!;
 

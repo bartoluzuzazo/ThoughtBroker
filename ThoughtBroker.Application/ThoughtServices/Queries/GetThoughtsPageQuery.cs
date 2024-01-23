@@ -5,24 +5,27 @@ using ThoughtBroker.Domain.Thoughts;
 
 namespace ThoughtBroker.Application.ThoughtServices.Queries;
 
-public record GetAllThoughtsQuery : IRequest<GetThoughtsResponse>
+public record GetThoughtsPageQuery : IRequest<GetThoughtsResponse>
 {
+    public int Page { get; set; }
+    public int Quantity { get; set; }
 }
 
-public class GetAllThoughtsQueryHandler : IRequestHandler<GetAllThoughtsQuery, GetThoughtsResponse>
+public class GetThoughtsPageQueryHandler : IRequestHandler<GetThoughtsPageQuery, GetThoughtsResponse>
 {
     private readonly IThoughtRepository _thoughtRepository;
     private readonly IMapper _mapper;
 
-    public GetAllThoughtsQueryHandler(IThoughtRepository thoughtRepository, IMapper mapper)
+    public GetThoughtsPageQueryHandler(IThoughtRepository thoughtRepository, IMapper mapper)
     {
         _thoughtRepository = thoughtRepository;
         _mapper = mapper;
     }
     
-    public async Task<GetThoughtsResponse> Handle(GetAllThoughtsQuery request, CancellationToken cancellationToken)
+    public async Task<GetThoughtsResponse> Handle(GetThoughtsPageQuery request, CancellationToken cancellationToken)
     {
-        var thoughts = await _thoughtRepository.GetAllThoughtsAsync();
+        var thoughts = await _thoughtRepository.GetThoughtsPageAsync(request.Page, request.Quantity);
+        var count = await _thoughtRepository.CountRows();
         var response = new GetThoughtsResponse()
         {
             Thoughts = thoughts.Select(t =>
@@ -31,7 +34,7 @@ public class GetAllThoughtsQueryHandler : IRequestHandler<GetAllThoughtsQuery, G
                 tResponse.Username = t.User.Username;
                 return tResponse;
             }).ToList(),
-            Pages = 1
+            Pages = (count + request.Quantity - 1) / request.Quantity
         };
         return response;
     }

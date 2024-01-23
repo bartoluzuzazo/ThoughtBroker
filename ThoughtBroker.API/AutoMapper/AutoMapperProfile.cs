@@ -23,7 +23,7 @@ public class AutoMapperProfile : Profile
         CreateMap<UserCreateRequest, AddUserCommand>();
         CreateMap<User, UserGetResponse>();
         CreateMap<ThoughtCreateRequest, PostThoughtCommand>();
-        CreateMap<Thought, GetAllThoughtsResponseThought>();
+        CreateMap<Thought, GetThoughtsResponseThought>();
         CreateMap<UserLoginRequest, UserLoginQuery>();
         CreateMap<OpinionCreateRequest, CreateOpinionCommand>();
         CreateMap<Opinion, OpinionsGetResponseOpinion>();

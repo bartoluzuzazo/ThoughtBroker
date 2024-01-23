@@ -40,5 +40,17 @@ namespace ThoughtBroker.API.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpGet("page")]
+        public async Task<IActionResult> GetThoughtsPage(int page, int quantity)
+        {
+            var command = new GetThoughtsPageQuery
+            {
+                Page = page,
+                Quantity = quantity
+            };
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
     }
 }

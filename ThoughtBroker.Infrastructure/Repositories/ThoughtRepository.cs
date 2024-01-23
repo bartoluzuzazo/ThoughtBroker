@@ -24,4 +24,17 @@ public class ThoughtRepository : IThoughtRepository
         var thoughts = await _context.Thoughts.Include(t => t.User).OrderByDescending(t => t.Timestamp).ToListAsync();
         return thoughts;
     }
+
+    public async Task<List<Thought>> GetThoughtsPageAsync(int page, int quantity)
+    {
+        var thoughts = await _context.Thoughts.Include(t => t.User).OrderByDescending(t => t.Timestamp)
+            .Skip((page - 1) * quantity).Take(quantity).ToListAsync();
+        return thoughts;
+    }
+
+    public async Task<int> CountRows()
+    {
+        var count = await _context.Thoughts.CountAsync();
+        return count;
+    }
 }

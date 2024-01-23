@@ -10,6 +10,8 @@ export const PostThought = () => {
     const Navigator = useNavigate();
 
     const handlePost = () => {
+        if (content === "") return;
+
         const ThoughtDTO = {
             content: content,
         }
