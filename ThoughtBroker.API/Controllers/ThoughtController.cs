@@ -30,7 +30,7 @@ namespace ThoughtBroker.API.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             command.AuthorId = Guid.Parse(identity!.Claims.First(c => c.Type == "UserId").Value);
             var result = await _mediator.Send(command);
-            return Ok(result);
+            return CreatedAtAction(nameof(GetAllThoughts), result);
         }
 
         [HttpGet("all")]

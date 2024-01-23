@@ -15,4 +15,15 @@ public partial class Opinion : ValueObject
     public virtual Thought Thought { get; set; } = null!;
 
     public virtual User User { get; set; } = null!;
+
+    public static Opinion Create(Guid userId, Guid thoughtId, bool isPositive)
+    {
+        var opinion = new Opinion()
+        {
+            UserId = userId,
+            ThoughtId = thoughtId,
+            IsPositive = isPositive
+        };
+        return opinion;
+    }
 }

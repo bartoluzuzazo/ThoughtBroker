@@ -28,7 +28,6 @@ export const PostThought = () => {
                 label="Share your thoughts!"
                 multiline
                 rows={4}
-                maxRows={8}
                 onChange={(e)=>setContent(e.target.value)}
             />
             <Button variant="contained" endIcon={<SendIcon />} onClick={handlePost}>

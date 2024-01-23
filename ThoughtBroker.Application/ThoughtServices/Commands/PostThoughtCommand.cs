@@ -24,9 +24,7 @@ public class PostThoughtCommandHandler : IRequestHandler<PostThoughtCommand, Tho
     public async Task<ThoughtCreateResponse> Handle(PostThoughtCommand request, CancellationToken cancellationToken)
     {
         var thought = Thought.Create(request.AuthorId, request.Content, request.ParentId);
-
         await _thoughtRepository.CreateThoughtAsync(thought);
-
         var response = new ThoughtCreateResponse()
         {
             Id = thought.Id

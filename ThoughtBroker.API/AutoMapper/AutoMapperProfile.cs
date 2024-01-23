@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
+using ThoughtBroker.Application.DTOs.OpinionDTOs.Create;
+using ThoughtBroker.Application.DTOs.OpinionDTOs.Read;
 using ThoughtBroker.Application.DTOs.ThoughtDTOs.Create;
 using ThoughtBroker.Application.DTOs.ThoughtDTOs.Read;
 using ThoughtBroker.Application.DTOs.UserDTOs.Create;
 using ThoughtBroker.Application.DTOs.UserDTOs.Login;
 using ThoughtBroker.Application.DTOs.UserDTOs.Read;
+using ThoughtBroker.Application.OpinionServices.Commands;
 using ThoughtBroker.Application.ThoughtServices.Commands;
 using ThoughtBroker.Application.UserServices.Commands;
 using ThoughtBroker.Application.UserServices.Queries;
+using ThoughtBroker.Domain.Opinions;
 using ThoughtBroker.Domain.Thoughts;
 using ThoughtBroker.Domain.Users;
 
@@ -21,5 +25,7 @@ public class AutoMapperProfile : Profile
         CreateMap<ThoughtCreateRequest, PostThoughtCommand>();
         CreateMap<Thought, GetAllThoughtsResponseThought>();
         CreateMap<UserLoginRequest, UserLoginQuery>();
+        CreateMap<OpinionCreateRequest, CreateOpinionCommand>();
+        CreateMap<Opinion, OpinionsGetResponseOpinion>();
     }
 }

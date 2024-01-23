@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ThoughtBroker.Application.ThoughtServices.Commands;
 using ThoughtBroker.Application.UserServices.Commands;
+using ThoughtBroker.Domain.Opinions;
 using ThoughtBroker.Domain.Thoughts;
 using ThoughtBroker.Domain.Users;
 using ThoughtBroker.Infrastructure.Context;
@@ -22,6 +23,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(ty
 builder.Services.AddDbContext<EfDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("TestingDefault")));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IThoughtRepository, ThoughtRepository>();
+builder.Services.AddScoped<IOpinionRepository, OpinionRepository>();
 
 builder.Services.AddCors(options =>
 {

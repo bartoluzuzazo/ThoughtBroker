@@ -28,7 +28,7 @@ public class UserController : ControllerBase
         var command = _mapper.Map<AddUserCommand>(request);
         var result = await _mediator.Send(command);
         if (result.Id.Equals(Guid.Empty)) return Conflict();
-        return Ok(result);
+        return CreatedAtAction(nameof(Login), result);
     }
 
     [HttpPost("login")]
