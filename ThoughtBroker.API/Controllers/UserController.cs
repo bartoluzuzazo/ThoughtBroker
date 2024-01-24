@@ -1,9 +1,12 @@
-﻿using AutoMapper;
+﻿using System.Security.Claims;
+using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using ThoughtBroker.Application.DTOs.UserDTOs.Create;
 using ThoughtBroker.Application.DTOs.UserDTOs.Login;
+using ThoughtBroker.Application.DTOs.UserDTOs.Read;
 using ThoughtBroker.Application.UserServices.Commands;
 using ThoughtBroker.Application.UserServices.Queries;
 
@@ -46,5 +49,19 @@ public class UserController : ControllerBase
         var command = new GetUserQuery{Id = request};
         var result = await _mediator.Send(command);
         return result is not null ? Ok(result) : NotFound();
+    }
+    
+    [HttpGet("claims")]
+    [Authorize]
+    public IActionResult GetClaims()
+    {
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        var response = new UserGetClaimsResponse()
+        {
+            Id = identity!.Claims.First(c => c.Type == "UserId").Value,
+            Username = identity!.Claims.First(c => c.Type == "Username").Value,
+            Role = identity!.Claims.First(c => c.Type == "Role").Value
+        };
+        return Ok(response);
     }
 }

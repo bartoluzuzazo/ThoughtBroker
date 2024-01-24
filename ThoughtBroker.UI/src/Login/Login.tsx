@@ -1,8 +1,9 @@
 import {Button, TextField} from "@mui/material";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import axios from "axios";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
 
 export const Login = () => {
 
@@ -12,7 +13,21 @@ export const Login = () => {
     const [password, setPassword] = useState<string>("");
     const Navigator = useNavigate();
 
+    useEffect(() => {
+        if(!JWT || JWT==="") return;
+
+        let decodedToken = jwtDecode(JWT);
+        let currentDate = new Date();
+        if (!(decodedToken.exp! * 1000 < currentDate.getTime())) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${JWT}`;
+            axios.get("http://localhost:5102/api/User/claims").then(({data}) => {
+                Navigator("/home");
+            });
+        }
+    }, [])
+
     const handleLogin = () => {
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) return;
         const UserDTO = {
             email: email,
             password: password,
@@ -37,6 +52,9 @@ export const Login = () => {
 
                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={handleLogin}>
                     Log in
+                </Button>
+                <Button type="submit" fullWidth color="error" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() => Navigator("/register")}>
+                    Register Account
                 </Button>
             </div>
         </div>
