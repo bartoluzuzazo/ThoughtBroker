@@ -5,7 +5,7 @@ import {Pagination, Skeleton} from "@mui/material";
 
 export const Threads = () => {
 
-    const quantity = 5;
+    const quantity = 4;
 
     const [thoughts, setThoughts] = useState<IThought[]>();
     const [page, setPage] = useState(1);

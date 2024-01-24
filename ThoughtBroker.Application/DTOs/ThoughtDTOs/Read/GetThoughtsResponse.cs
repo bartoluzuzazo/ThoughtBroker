@@ -8,6 +8,8 @@ public class GetThoughtsResponse
 
 public class GetThoughtsResponseThought
 {
+    public Guid Id { get; set; }
+    
     public string Content { get; set; } = null!;
 
     public Guid UserId { get; set; }
@@ -17,4 +19,8 @@ public class GetThoughtsResponseThought
     public DateTime Timestamp { get; set; }
 
     public Guid? ParentId { get; set; }
+
+    public int Endorsements { get; set; }
+    
+    public int Condemnations { get; set; }
 }

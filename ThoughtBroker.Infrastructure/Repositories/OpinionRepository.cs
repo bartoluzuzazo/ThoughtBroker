@@ -15,6 +15,7 @@ public class OpinionRepository : IOpinionRepository
     
     public async Task CreateOpinion(Opinion opinion)
     {
+        if (await _context.Opinions.FirstOrDefaultAsync(o => o.UserId==opinion.UserId && o.ThoughtId==opinion.ThoughtId) is not null) return;
         await _context.Opinions.AddAsync(opinion);
         await _context.SaveChangesAsync();
     }
@@ -23,5 +24,11 @@ public class OpinionRepository : IOpinionRepository
     {
         var opinions = await _context.Opinions.Where(o => o.ThoughtId == thoughtId).ToListAsync();
         return opinions;
+    }
+
+    public async Task<bool> OpinionExists (Guid userId, Guid thoughtId)
+    {
+        var opinion = await _context.Opinions.FirstOrDefaultAsync(o => o.ThoughtId == thoughtId && o.UserId == userId);
+        return opinion is not null;
     }
 }
