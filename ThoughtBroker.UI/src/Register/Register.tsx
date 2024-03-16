@@ -12,12 +12,19 @@ export const Register = () => {
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [rep_password, setRepPassword] = useState<string>("");
+    const [validationText, setValidationText] = useState("")
     const Navigator = useNavigate();
 
     const handleRegister = () => {
 
-        if(password!==rep_password) return;
-        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) return;
+        if(password!==rep_password) {
+            setValidationText("Passwords are not the same")
+            return;
+        }
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            setValidationText("Invalid email address")
+            return;
+        }
 
         const RegisterDTO = {
             username: username,
@@ -40,7 +47,9 @@ export const Register = () => {
                 console.log(error);
             })
         }).catch((error) => {
-            console.log(error);
+            if(error.response.status === 409){
+                setValidationText("Username or email address is already taken")
+            }
         })
 
     }
@@ -56,6 +65,7 @@ export const Register = () => {
                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} onClick={handleRegister}>
                     Register
                 </Button>
+                <p>{validationText}</p>
             </div>
         </div>
     )

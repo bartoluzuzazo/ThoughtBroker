@@ -19,6 +19,10 @@
       <ProjectReference Include="..\ThoughtBroker.Domain\ThoughtBroker.Domain.csproj" />
       <ProjectReference Include="..\ThoughtBroker.Infrastructure\ThoughtBroker.Infrastructure.csproj" />
 
+
+
+    
+
     </ItemGroup>
 
 

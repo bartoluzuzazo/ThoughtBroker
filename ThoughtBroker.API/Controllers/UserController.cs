@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using ThoughtBroker.Application.DTOs.UserDTOs.Create;
 using ThoughtBroker.Application.DTOs.UserDTOs.Login;
 using ThoughtBroker.Application.DTOs.UserDTOs.Read;
+using ThoughtBroker.Application.DTOs.UserDTOs.Update;
 using ThoughtBroker.Application.UserServices.Commands;
 using ThoughtBroker.Application.UserServices.Queries;
 
@@ -40,6 +41,37 @@ public class UserController : ControllerBase
         var command = _mapper.Map<UserLoginQuery>(request);
         var result = await _mediator.Send(command);
         if (result.Token.IsNullOrEmpty()) return Unauthorized();
+        return Ok(result);
+    }
+
+    [Authorize]
+    [HttpPut("password")]
+    public async Task<IActionResult> ChangePassword(UserPutPasswordRequest request)
+    {
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        var id = Guid.Parse(identity!.Claims.First(c => c.Type == "UserId").Value);
+        var command = new UpdatePasswordCommand()
+        {
+            Id = id,
+            Password = request.Password
+        };
+        var result = await _mediator.Send(command);
+        if (result.Id == Guid.Empty) return NotFound();
+        return Ok(result);
+    }
+    
+    [Authorize]
+    [HttpDelete]
+    public async Task<IActionResult> DeleteAccount()
+    {
+        var identity = HttpContext.User.Identity as ClaimsIdentity;
+        var id = Guid.Parse(identity!.Claims.First(c => c.Type == "UserId").Value);
+        var command = new DeleteAccountCommand()
+        {
+            Id = id
+        };
+        var result = await _mediator.Send(command);
+        if (result == Guid.Empty) return NotFound();
         return Ok(result);
     }
 

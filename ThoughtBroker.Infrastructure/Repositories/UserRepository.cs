@@ -19,12 +19,6 @@ public class UserRepository : IUserRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteUserAsync(User user)
-    {
-        _context.Users.Remove(user);
-        await _context.SaveChangesAsync();
-    }
-
     public async Task<User?> GetUserAsync(Guid id)
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
@@ -58,5 +52,22 @@ public class UserRepository : IUserRepository
         var emailCheck = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         return usernameCheck is not null || emailCheck is not null;
     }
-    
+
+    public async Task<Guid> PutPasswordAsync(Guid id, string password)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        if (user is null) return Guid.Empty;
+        user.PasswordHash = password;
+        await _context.SaveChangesAsync();
+        return user.Id;
+    }
+
+    public async Task<Guid> DeleteAccountAsync(Guid id)
+    {
+        var user = await _context.Users.Include(u => u.Opinions).Include(u => u.Thoughts).FirstOrDefaultAsync(u => u.Id == id);
+        if (user is null) return Guid.Empty;
+        _context.Remove(user);
+        await _context.SaveChangesAsync();
+        return id;
+    }
 }

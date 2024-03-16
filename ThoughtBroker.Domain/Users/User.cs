@@ -27,7 +27,7 @@ public class User : BaseEntity
             Id = Guid.NewGuid(),
             Username = username,
             Email = email,
-            PasswordHash = password //TODO: add encryption
+            PasswordHash = password
         };
         return user;
     }

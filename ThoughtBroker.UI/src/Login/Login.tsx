@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
 
 export const Login = () => {
+    const [validationText, setValidationText] = useState("")
 
     const [JWT, setJWT] = useLocalStorage("JWT", "");
 
@@ -27,7 +28,10 @@ export const Login = () => {
     }, [])
 
     const handleLogin = () => {
-        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) return;
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+            setValidationText("Invalid email address")
+            return;
+        }
         const UserDTO = {
             email: email,
             password: password,
@@ -56,6 +60,8 @@ export const Login = () => {
                 <Button type="submit" fullWidth color="error" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={() => Navigator("/register")}>
                     Register Account
                 </Button>
+                <p>{validationText}</p>
+
             </div>
         </div>
     )
